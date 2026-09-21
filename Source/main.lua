@@ -1,9 +1,12 @@
 import "background"
+import "fishing_throw"
 
 local gfx = playdate.graphics
 
 bobber_x = 0
 bobber_y = 0
+player_x = 100
+player_y = 100
 
 gfx.setColor(gfx.kColorBlack)
 
