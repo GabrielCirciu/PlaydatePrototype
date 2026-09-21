@@ -1,41 +1,21 @@
-# Compiled Lua sources
-luac.out
+# Playdate build output
+*.pdx
+build/
+dist/
 
-# luarocks build files
-*.src.rock
-*.zip
-*.tar.gz
+# Playdate Simulator / development artifacts
+.DS_Store
+Thumbs.db
 
-# Object files
-*.o
-*.os
-*.ko
-*.obj
-*.elf
+# Editor / IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# Precompiled Headers
-*.gch
-*.pch
+# OS/editor temporary files
+desktop.ini
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-*.def
-*.exp
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
+# Logs
+*.log
