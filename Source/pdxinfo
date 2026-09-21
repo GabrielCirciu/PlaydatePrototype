@@ -1,7 +1,7 @@
-name=Template
-author=You, Inc.
-description=A basic game template.
-bundleID=com.yourcompany.TemplateGame
+name=It's Just Fishing
+author=Gabriel Cristian Circiu, Bowie Rømer Jørgensen, Marcel Kress
+description=It's definitely just a fishing game.
+bundleID=com.BMG.ItsJustFishing
 version=1.0
-buildNumber=100
+buildNumber=1
 imagePath=SystemAssets
