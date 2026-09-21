@@ -1,2 +1,47 @@
-# PlaydatePrototype
-Playdate Prototype.
+# Game Name
+
+## Core concept
+
+One paragraph.
+
+## Controls
+
+D-pad:
+
+A:
+
+B:
+
+Crank:
+
+Accelerometer:
+
+## Core gameplay loop
+
+1. ...
+2. ...
+3. ...
+
+## MVP
+
+- ...
+- ...
+- ...
+
+## Nice to have
+
+- ...
+- ...
+- ...
+
+## Technical notes
+
+- ...
+- ...
+- ...
+
+## Known problems
+
+- ...
+- ...
+- ...
