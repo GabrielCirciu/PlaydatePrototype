@@ -8,6 +8,8 @@ bobber_y = 0
 player_x = 100
 player_y = 100
 
+fishHooked = false
+
 gfx.setColor(gfx.kColorBlack)
 
 createBackgroundSprite()
