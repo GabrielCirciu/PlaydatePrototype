@@ -13,8 +13,16 @@ gfx.setColor(gfx.kColorBlack)
 createBackgroundSprite()
 
 function playdate.update()
-    -- gfx.fillRect(0, 0, 400, 240)
+    if playdate.buttonJustPressed("A") then
+        throw_line()
+    end
+
     gfx.sprite.update()
+
     playdate.drawFPS(0,0)
+    gfx.drawText('bobber x: '..bobber_x, 0, 20)
+    gfx.drawText('bobber y: '..bobber_y, 0, 40)
+    gfx.drawText('player x: '..player_x, 0, 60)
+    gfx.drawText('player y: '..player_y, 0, 80)
 end
 
