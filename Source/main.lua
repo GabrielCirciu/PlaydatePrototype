@@ -2,6 +2,9 @@ import "background"
 
 local gfx = playdate.graphics
 
+bobber_x = 0
+bobber_y = 0
+
 gfx.setColor(gfx.kColorBlack)
 
 createBackgroundSprite()
