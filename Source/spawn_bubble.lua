@@ -21,3 +21,10 @@ function spawn_bubble(posX, posY)
     end
 end
 
+function destroy_bubble()
+    if bubbleSprite then
+        bubbleSprite:remove()
+        bubbleSprite = nil
+        bubblePosition = {0, 0}
+    end
+end

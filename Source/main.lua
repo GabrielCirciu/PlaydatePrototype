@@ -1,3 +1,4 @@
+import "CoreLibs/timer"
 import "background"
 import "fishing_throw"
 import "bobber_control"
@@ -34,6 +35,7 @@ playdate.startAccelerometer()
 
 function playdate.update()
     gravityX, gravityY, gravityZ = playdate.readAccelerometer()
+    playdate.timer.updateTimers()
 
     --[[
     if playdate.buttonJustPressed("A") and not isCast and not isMoving then
@@ -91,7 +93,15 @@ function playdate.update()
         spawn_bubble(0, math.random(20, 220))
     end
 
-    overlapping_fish_bobber_check()
+    -- Check if bubble overlaps with bobber
+    if fishHooked == false then
+        overlapping_fish_bobber_check()
+    end
+
+    -- Reeling minigame
+    if fishHooked then
+        reeling_minigame()
+    end
 
     gfx.sprite.update()
     if isCast then
