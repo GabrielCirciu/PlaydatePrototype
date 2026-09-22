@@ -4,6 +4,7 @@ import "bobber_control"
 import "move_bobber"
 import "PullPush"
 import "spawn_bubble"
+import "reel_fish"
 
 local gfx = playdate.graphics
 
@@ -89,6 +90,8 @@ function playdate.update()
     if bubbleSprite == nil then
         spawn_bubble(0, math.random(20, 220))
     end
+
+    overlapping_fish_bobber_check()
 
     gfx.sprite.update()
     if isCast then
