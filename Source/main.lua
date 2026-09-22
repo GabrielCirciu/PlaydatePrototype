@@ -11,6 +11,8 @@ local gfx = playdate.graphics
 
 bobber_x = 0
 bobber_y = 0
+bobber_target_x = 0
+bobber_target_y = 0
 player_x = 200
 player_y = 220
 
@@ -23,10 +25,12 @@ bubblePosition = {0, 0}
 isCast = false
 fishHooked = false
 isMoving = false
+justCastThisFrame = false
 
 accelerometerMoveTheshold = 0.9
-accelerometerYankScalar = 5
-crankScalar = 1.2
+accelerometerYankScalar = 1.0
+crankScalar = 0.05
+throwDistance = 90
 
 gfx.setColor(gfx.kColorBlack)
 
@@ -45,11 +49,8 @@ function playdate.update()
     --]]
 
     -- Cast line while holding B
-    if playdate.buttonIsPressed("B") and not isCast and not isMoving then
+    if playdate.buttonIsPressed("B") and not isCast then
         if gravityY < -accelerometerMoveTheshold then
-            -- how far can the player throw
-            local throwDistance = 150 
-
             -- Find target coordinates based on throw
             local targetX = player_x + (gravityX * throwDistance)
             local targetY = player_y + (gravityY * throwDistance)
@@ -68,30 +69,35 @@ function playdate.update()
             
             print("THROW!")
             throw_line(targetX, targetY)
-            isCast = true
+            justCastThisFrame = true
         end
     end
 
-
     -- Yank with accelerometer
-    if isCast and not isMoving then
-        if distanceToPlayer() < resetCastDistanceThreshold then
-            destroy_bobber()
-            isCast = false
-            fishHooked = false
-        elseif math.abs(gravityX) > accelerometerMoveTheshold or math.abs(gravityY) > accelerometerMoveTheshold then
-            move_bobber(bobber_x, bobber_y, bobber_x + (gravityX * accelerometerYankScalar), bobber_y + (gravityY * accelerometerYankScalar), 5, 0, 0)
+    if isCast then
+        if math.abs(gravityX) > accelerometerMoveTheshold or math.abs(gravityY) > accelerometerMoveTheshold then
+            set_bobber_target(bobber_target_x + (gravityX * accelerometerYankScalar), bobber_target_y + (gravityY * accelerometerYankScalar))
         end
     end
 
     -- Reset bobber
-    if playdate.buttonJustPressed("B") and isCast and not isMoving then
-        move_bobber(bobber_x, bobber_y, player_x, player_y, 30, 0, 0, function()
-            destroy_bobber()
-            isCast = false
-            fishHooked = false
-        end)
+    if playdate.buttonJustPressed("B") and isCast and not justCastThisFrame then
+        set_bobber_target(player_x, player_y)
     end
+
+    -- Retrieve/destroy bobber when it has returned back to the player
+    if isCast and not justCastThisFrame and distanceToPlayer() < resetCastDistanceThreshold and targetDistanceToPlayer() < resetCastDistanceThreshold then
+        destroy_bobber()
+        isCast = false
+        fishHooked = false
+    end
+
+    -- Continuously move bobber towards target
+    if isCast and bobber then
+        move_bobber()
+    end
+
+    justCastThisFrame = false
 
     -- Bubble spawner
     if bubbleSprite == nil and not fishHooked then
@@ -109,6 +115,7 @@ function playdate.update()
     end
 
     gfx.sprite.update()
+    
     if isCast then
         gfx.drawLine(player_x, player_y, bobber_x, bobber_y)
     end
@@ -134,6 +141,6 @@ function playdate.cranked(change, acceleratedChange)
     end
 
     if change > 1 then
-        Push()
+        Push(change * crankScalar)
     end
 end

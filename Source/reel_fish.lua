@@ -27,13 +27,14 @@ function reeling_minigame()
     fishMoveTimer = fishMoveTimer + 1
     if fishMoveTimer == 60 then
         fishMoveTimer = 0
-        fishDirection = math.random(0, 360)
-        local newBobberX = bobber_x + math.cos(fishDirection) * 10
-        local newBobberY = bobber_y + math.sin(fishDirection) * 10
+        fishDirection = math.random(-45, 45)
+        local rad = math.rad(fishDirection)
+        local newBobberX = bobber_x + math.sin(rad) * 50
+        local newBobberY = bobber_y - math.cos(rad) * 50
 
         -- Check if new position is within screen bounds
         if newBobberX >= 0 and newBobberX <= 400 and newBobberY >= 0 and newBobberY <= 240 then
-            move_bobber(bobber_x, bobber_y, newBobberX, newBobberY, 10, 0, 0)
+            set_bobber_target(newBobberX, newBobberY)
         end
     end
 end

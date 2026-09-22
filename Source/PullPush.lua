@@ -13,12 +13,9 @@ local dirToPlayerY = 0
 local dirToPlayerX = 0
 
 function Pull(pullScalar)
-
     if isCast then
-        --print("PULL")
-
-        local dx = bobber_x - player_x
-        local dy = bobber_y - player_y
+        local dx = bobber_target_x - player_x
+        local dy = bobber_target_y - player_y
 
         local length = math.sqrt(dx * dx + dy * dy)
 
@@ -27,38 +24,28 @@ function Pull(pullScalar)
             dirToPlayerX = dx / length
             dirToPlayerY = dy / length
 
-            -- Set the target position for the bobber towards the player this frame
-            targetX = bobber_x + dirToPlayerX * pullScalar
-            targetY = bobber_y + dirToPlayerY * pullScalar
+            -- Adjust target position towards player
+            set_bobber_target(bobber_target_x + dirToPlayerX * pullScalar, bobber_target_y + dirToPlayerY * pullScalar)
         end
 
-         -- If the bobber is close to the player we count it as not cast
-        if distanceToPlayer() < resetCastDistanceThreshold then
+        -- If the bobber and target are close to the player, reset it
+        if distanceToPlayer() < resetCastDistanceThreshold and targetDistanceToPlayer() < resetCastDistanceThreshold then
             print("Reset isCast")
             isCast = false
             fishHooked = false
-            targetX = player_x
-            targetY = player_y
+            destroy_bobber()
         end
-
-        -- MOVE BOBBER
-        move_bobber(bobber_x, bobber_y, targetX, targetY, 35, 0, 0)
     end
 end
 
-pushX = 20
-pushY = -10
+pushX = 1.0
+pushY = -1.0
 
-function Push()
-    
+function Push(pushScalar)
     if isCast then
-        targetX = bobber_x + pushX
-        targetY = bobber_y + pushY
+        local scalar = pushScalar or 1.0
+        set_bobber_target(bobber_target_x + (pushX * scalar), bobber_target_y + (pushY * scalar))
     end
-
-    -- MOVE BOBBER
-    move_bobber(bobber_x, bobber_y, targetX, targetY, 30, 0, 0)
-    
 end
 
 function distanceToPlayer()
@@ -66,4 +53,11 @@ function distanceToPlayer()
     distToPlayerY = bobber_y - player_y
 
     return math.sqrt(distToPlayerX * distToPlayerX + distToPlayerY * distToPlayerY)
+end
+
+function targetDistanceToPlayer()
+    local distTargetX = bobber_target_x - player_x
+    local distTargetY = bobber_target_y - player_y
+
+    return math.sqrt(distTargetX * distTargetX + distTargetY * distTargetY)
 end

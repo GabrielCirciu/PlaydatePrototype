@@ -14,11 +14,19 @@ function throw_line(destX, destY)
         bobber:add()
     end
 
-    -- start moving bobber from player position to destination
-    move_bobber(player_x, player_y, destX, destY, 30, 40, 40)
+    -- start bobber at player position and set destination target
+    bobber_x = player_x
+    bobber_y = player_y
+    bobber:moveTo(bobber_x, bobber_y)
+    set_bobber_target(destX, destY)
+    isCast = true
+    isMoving = true
 end
 
 function destroy_bobber()
-    bobber:remove()
-    bobber = nil
+    if bobber then
+        bobber:remove()
+        bobber = nil
+    end
+    isMoving = false
 end
