@@ -158,8 +158,13 @@ function playdate.update()
     end
 
     if fishCaught then
-        -- Marcel, do your thing here :)
+        -- TODO: Marcel, do your thing here :)
         print("CAUGHT!")
+    end
+
+    if stopSpawning then
+        -- TODO: Win screen
+        print("YOU WON!")
     end
 
     gfx.sprite.update()
