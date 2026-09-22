@@ -28,8 +28,17 @@ function playdate.update()
     if playdate.buttonJustPressed("A") and not isCast and not isMoving then
         isCast = true
         throw_line(math.random(100, 300), math.random(20, 220))
+    elseif playdate.buttonJustPressed("Left") and isCast and not isMoving then
+        move_bobber(bobber_x, bobber_y, bobber_x - 10, bobber_y, 5, 0, 0)
+    elseif playdate.buttonJustPressed("Right") and isCast and not isMoving then
+        move_bobber(bobber_x, bobber_y, bobber_x + 10, bobber_y, 5, 0, 0)
+    elseif playdate.buttonJustPressed("Up") and isCast and not isMoving then
+        move_bobber(bobber_x, bobber_y, bobber_x, bobber_y - 10, 5, 0, 0)
+    elseif playdate.buttonJustPressed("Down") and isCast and not isMoving then
+        move_bobber(bobber_x, bobber_y, bobber_x, bobber_y + 10, 5, 0, 0)
     elseif playdate.buttonJustPressed("B") and isCast and not isMoving then
         isCast = false
+        move_bobber(bobber_x, bobber_y, player_x, player_y, 30, 0, 0)
     end
 
     gfx.sprite.update()
