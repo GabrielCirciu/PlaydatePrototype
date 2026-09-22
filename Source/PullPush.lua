@@ -36,6 +36,7 @@ function Pull(pullScalar)
         if distanceToPlayer() < resetCastDistanceThreshold then
             print("Reset isCast")
             isCast = false
+            fishHooked = false
             targetX = player_x
             targetY = player_y
         end

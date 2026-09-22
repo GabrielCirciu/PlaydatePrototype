@@ -75,9 +75,13 @@ function playdate.update()
 
     -- Yank with accelerometer
     if isCast and not isMoving then
-        if math.abs(gravityX) > accelerometerMoveTheshold or math.abs(gravityY) > accelerometerMoveTheshold then
+        if distanceToPlayer() < resetCastDistanceThreshold then
+            destroy_bobber()
+            isCast = false
+            fishHooked = false
+        elseif math.abs(gravityX) > accelerometerMoveTheshold or math.abs(gravityY) > accelerometerMoveTheshold then
             move_bobber(bobber_x, bobber_y, bobber_x + (gravityX * accelerometerYankScalar), bobber_y + (gravityY * accelerometerYankScalar), 5, 0, 0)
-        end    
+        end
     end
 
     -- Reset bobber
@@ -85,11 +89,12 @@ function playdate.update()
         move_bobber(bobber_x, bobber_y, player_x, player_y, 30, 0, 0, function()
             destroy_bobber()
             isCast = false
+            fishHooked = false
         end)
     end
 
     -- Bubble spawner
-    if bubbleSprite == nil then
+    if bubbleSprite == nil and not fishHooked then
         spawn_bubble(0, math.random(20, 220))
     end
 
