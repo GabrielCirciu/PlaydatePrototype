@@ -7,6 +7,7 @@ currentCrankChange = 0
 accelMoveValue = 10
 
 local targetX = 0
+local targetY = 0
 
 local dirToPlayerY = 0
 local dirToPlayerX = 0
