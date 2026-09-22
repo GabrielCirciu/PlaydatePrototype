@@ -2,6 +2,7 @@ local gfx = playdate.graphics
 
 local fishDirection = 0
 local fishMoveTimer = 0
+local isReeling = false
 
 function overlapping_fish_bobber_check()
     -- Check distance between the bobber and the bubble
@@ -23,6 +24,12 @@ function overlapping_fish_bobber_check()
 end
 
 function reeling_minigame()
+    if not isReeling then
+        isReeling = true
+        -- change bobber image to a hooked fish
+        bobber:setImage(gfx.image.new("SystemAssets/hooked_fish.png"))
+    end
+
     -- Every second the fish decides on a direction to swim
     fishMoveTimer = fishMoveTimer + 1
     if fishMoveTimer >= 60 - player_skill * 10 then
