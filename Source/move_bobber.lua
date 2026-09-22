@@ -4,7 +4,7 @@ function lerp(a, b, t)
     return a + (b - a) * t
 end
 
-function move_bobber(startX, startY, destX, destY, duration, arcW, arcH)
+function move_bobber(startX, startY, destX, destY, duration, arcW, arcH, onComplete)
     local moveProgress = 0.0
     local startX, startY = startX, startY
     local endX, endY = destX, destY
@@ -16,6 +16,9 @@ function move_bobber(startX, startY, destX, destY, duration, arcW, arcH)
             if moveProgress >= 1.0 then
                 moveProgress = 1.0
                 isMoving = false
+                if onComplete then
+                    onComplete()
+                end
             end
 
             -- lerping animation

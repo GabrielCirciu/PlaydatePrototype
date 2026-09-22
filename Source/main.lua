@@ -15,6 +15,8 @@ player_y = 220
 resetCastDistanceThreshold = 20
 
 bobber = nil
+bubbleSprite = nil
+bubblePosition = {0, 0}
 
 isCast = false
 fishHooked = false
@@ -22,12 +24,7 @@ isMoving = false
 
 accelerometerMoveTheshold = 0.9
 accelerometerYankScalar = 5
-
 crankScalar = 1.2
-bubbleCount = 0
-bubbleMax = 1
-bubblePositions = {}
-bubbleSprites = {}
 
 gfx.setColor(gfx.kColorBlack)
 
@@ -82,17 +79,16 @@ function playdate.update()
 
     -- Reset bobber
     if playdate.buttonJustPressed("B") and isCast and not isMoving then
-        isCast = false
-        move_bobber(bobber_x, bobber_y, player_x, player_y, 30, 0, 0)
+        move_bobber(bobber_x, bobber_y, player_x, player_y, 30, 0, 0, function()
+            destroy_bobber()
+            isCast = false
+        end)
     end
 
-    -- Every 2 seconds spawn a bubble
-    if playdate.getSecondsSinceEpoch() % 2 == 0 and bubbleCount < bubbleMax then
-        spawn_bubble(50, math.random(20, 220))
+    -- Bubble spawner
+    if bubbleSprite == nil then
+        spawn_bubble(0, math.random(20, 220))
     end
-
-    -- Move bubble sprites to the right
-    move_bubbles()
 
     gfx.sprite.update()
     if isCast then

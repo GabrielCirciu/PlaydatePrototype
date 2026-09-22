@@ -1,18 +1,23 @@
 local gfx = playdate.graphics
 
 function spawn_bubble(posX, posY)
-    bubblePositions[bubbleCount] = {posX, posY}
-    bubbleSprites[bubbleCount] = gfx.sprite.new()
-    bubbleSprites[bubbleCount]:setImage(gfx.image.new("SystemAssets/bubble.png"))
-    bubbleSprites[bubbleCount]:moveTo(posX, posY)
-    bubbleSprites[bubbleCount]:setZIndex(200 + bubbleCount)
-    bubbleSprites[bubbleCount]:add()
-    bubbleCount = bubbleCount + 1
-end
+    if not bubbleSprite then
+        bubblePosition = {posX, posY}
+        bubbleSprite = gfx.sprite.new()
+        bubbleSprite:setImage(gfx.image.new("SystemAssets/bubble.png"))
+        bubbleSprite:moveTo(posX, posY)
+        bubbleSprite:setZIndex(101)
+        bubbleSprite:add()
+    end
 
-function move_bubbles()
-    for i = 0, bubbleCount - 1 do
-        bubblePositions[i][1] = bubblePositions[i][1] + 1
-        bubbleSprites[i]:moveTo(bubblePositions[i][1], bubblePositions[i][2])
+    function bubbleSprite:update()
+        self:moveBy(1, 0)
+        bubblePosition[1] += 1
+        if bubblePosition[1] > 400 then
+            self:remove()
+            bubbleSprite = nil
+            bubblePosition = {0, 0}
+        end
     end
 end
+

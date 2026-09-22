@@ -17,3 +17,8 @@ function throw_line(destX, destY)
     -- start moving bobber from player position to destination
     move_bobber(player_x, player_y, destX, destY, 30, 40, 40)
 end
+
+function destroy_bobber()
+    bobber:remove()
+    bobber = nil
+end
