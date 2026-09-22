@@ -6,8 +6,11 @@ import "move_bobber"
 import "PullPush"
 import "spawn_bubble"
 import "reel_fish"
+import "intro"
 
 local gfx = playdate.graphics
+
+isIntro = true
 
 bobber_x = 0
 bobber_y = 0
@@ -65,6 +68,7 @@ local function createFishingLineSprite()
     return lineSprite
 end
 
+showIntroScreen()
 createBackgroundSprite()
 fishingLineSprite = createFishingLineSprite()
 playdate.startAccelerometer()
@@ -72,6 +76,11 @@ playdate.startAccelerometer()
 function playdate.update()
     gravityX, gravityY, gravityZ = playdate.readAccelerometer()
     playdate.timer.updateTimers()
+    gfx.sprite.update()
+
+    if isIntro then
+        return
+    end
 
     --[[
     if playdate.buttonJustPressed("A") and not isCast and not isMoving then
@@ -169,7 +178,7 @@ function playdate.update()
         print("YOU WON!")
     end
 
-    gfx.sprite.update()
+    
 
     --print(isCast)
     -- playdate.drawFPS(0,0)
