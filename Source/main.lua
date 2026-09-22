@@ -157,11 +157,13 @@ function playdate.update()
         reeling_minigame()
     end
 
+    -- When fish is fully reeled in
     if fishCaught then
         -- TODO: Marcel, do your thing here :)
         print("CAUGHT!")
     end
 
+    -- Player won the game and reeled in boss fish
     if stopSpawning then
         -- TODO: Win screen
         print("YOU WON!")
