@@ -15,6 +15,7 @@ bobber_target_x = 0
 bobber_target_y = 0
 player_x = 200
 player_y = 220
+player_skill = 1
 
 resetCastDistanceThreshold = 20
 
@@ -115,7 +116,10 @@ function playdate.update()
     if isCast and not justCastThisFrame and distanceToPlayer() < resetCastDistanceThreshold and targetDistanceToPlayer() < resetCastDistanceThreshold then
         destroy_bobber()
         isCast = false
-        fishHooked = false
+        if fishHooked then
+            fishHooked = false
+            player_skill += 1
+        end
     end
 
     -- Continuously move bobber towards target
@@ -148,6 +152,7 @@ function playdate.update()
     -- gfx.drawText('bobber y: '..bobber_y, 0, 40)
     -- gfx.drawText('player x: '..player_x, 0, 60)
     -- gfx.drawText('player y: '..player_y, 0, 80)
+    -- gfx.drawText('player skill: '..player_skill, 0, 100)
 end
 
 -- Use crank to reel in or give line to bobber

@@ -25,11 +25,11 @@ end
 function reeling_minigame()
     -- Every second the fish decides on a direction to swim
     fishMoveTimer = fishMoveTimer + 1
-    if fishMoveTimer == 60 then
+    if fishMoveTimer >= 60 - player_skill * 10 then
         fishMoveTimer = 0
         fishDirection = math.random(-45, 45)
         local rad = math.rad(fishDirection)
-        local newBobberX = bobber_x + math.sin(rad) * 50
+        local newBobberX = bobber_x + math.sin(rad) * 100
         local newBobberY = bobber_y - math.cos(rad) * 50
 
         -- Check if new position is within screen bounds

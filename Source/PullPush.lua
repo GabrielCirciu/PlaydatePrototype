@@ -32,7 +32,10 @@ function Pull(pullScalar)
         if distanceToPlayer() < resetCastDistanceThreshold and targetDistanceToPlayer() < resetCastDistanceThreshold then
             print("Reset isCast")
             isCast = false
-            fishHooked = false
+            if fishHooked then
+                fishHooked = false
+                player_skill += 1
+            end
             destroy_bobber()
         end
     end
