@@ -32,6 +32,14 @@ function Pull(pullScalar)
             targetY = bobber_y + dirToPlayerY * pullScalar
         end
 
+         -- If the bobber is close to the player we count it as not cast
+        if distanceToPlayer() < resetCastDistanceThreshold then
+            print("Reset isCast")
+            isCast = false
+            targetX = player_x
+            targetY = player_y
+        end
+
         -- MOVE BOBBER
         move_bobber(bobber_x, bobber_y, targetX, targetY, 30, 0, 0)
     end
@@ -50,4 +58,11 @@ function Push()
     -- MOVE BOBBER
     move_bobber(bobber_x, bobber_y, targetX, targetY, 30, 0, 0)
     
+end
+
+function distanceToPlayer()
+    distToPlayerX = bobber_x - player_x
+    distToPlayerY = bobber_y - player_y
+
+    return math.sqrt(distToPlayerX * distToPlayerX + distToPlayerY * distToPlayerY)
 end

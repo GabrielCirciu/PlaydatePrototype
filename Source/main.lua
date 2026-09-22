@@ -12,6 +12,8 @@ bobber_y = 0
 player_x = 200
 player_y = 220
 
+resetCastDistanceThreshold = 10
+
 bobber = nil
 
 isCast = false
@@ -49,10 +51,6 @@ function playdate.update()
         move_bobber(bobber_x, bobber_y, player_x, player_y, 30, 0, 0)
     end
 
-    if playdate.buttonJustPressed(playdate.kButtonRight) then
-        Pull(10)
-    end
-
     -- Random chance of spawning bubble
     if math.random(1, 100) == 1 and bubbleCount < bubbleMax then
         spawn_bubble(50, math.random(20, 220))
@@ -71,6 +69,11 @@ function playdate.update()
 end
 
 function playdate.cranked(change, acceleratedChange)
+
+    -- If the line is not cast the player can't pull it
+    if not isCast then
+        return
+    end
 
     if change < -1 then
         Pull(change * crankScalar)
