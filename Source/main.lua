@@ -43,6 +43,8 @@ function playdate.update()
         throw_line(math.random(100, 300), math.random(20, 220))
     end
 
+    -- if playdate.buttonH("A") and not isCast and not isMoving then
+
     -- Yank with accelerometer
     if isCast then
         if math.abs(gravityX) > accelerometerMoveTheshold or math.abs(gravityY) > accelerometerMoveTheshold then
@@ -65,7 +67,6 @@ function playdate.update()
     if isCast then
         gfx.drawLine(player_x, player_y, bobber_x, bobber_y)
     end
-
 
     -- playdate.drawFPS(0,0)
     -- gfx.drawText('bobber x: '..bobber_x, 0, 20)

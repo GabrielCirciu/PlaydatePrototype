@@ -6,7 +6,8 @@ local bgW = 0
 function createBackgroundSprite()
 
 	local bg = gfx.sprite.new()
-	local bgImg = gfx.image.new('SystemAssets/background.png')
+	local bgImg = gfx.image.new('SystemAssets/waterBackground_400x240.png')
+	--local bgImg = gfx.image.new('SystemAssets/background_old.png')
 	local w, h = bgImg:getSize()
 	bgW = w
 	bg:setBounds(0, 0, 400, 240)
