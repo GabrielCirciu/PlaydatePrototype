@@ -5,9 +5,10 @@ local gfx = playdate.graphics
 
 bobber_x = 0
 bobber_y = 0
-player_x = 100
-player_y = 100
+player_x = 220
+player_y = 220
 
+isCast = false
 fishHooked = false
 
 gfx.setColor(gfx.kColorBlack)
@@ -15,11 +16,20 @@ gfx.setColor(gfx.kColorBlack)
 createBackgroundSprite()
 
 function playdate.update()
-    if playdate.buttonJustPressed("A") then
-        throw_line()
+    -- Will be replaced with accelerometer in the future
+    if playdate.buttonJustPressed("A") and not isCast then
+        isCast = true
+        throw_line(math.random(100, 300), math.random(20, 220))
+    -- Will be repleaced with interaction to pull back line in the future
+    elseif playdate.buttonJustPressed("B") and isCast then
+        isCast = false
     end
 
     gfx.sprite.update()
+
+    if isCast then
+        gfx.drawLine(player_x, player_y, bobber_x, bobber_y)
+    end
 
     playdate.drawFPS(0,0)
     gfx.drawText('bobber x: '..bobber_x, 0, 20)
