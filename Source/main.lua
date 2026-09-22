@@ -12,7 +12,7 @@ bobber_y = 0
 player_x = 200
 player_y = 220
 
-resetCastDistanceThreshold = 10
+resetCastDistanceThreshold = 20
 
 bobber = nil
 
@@ -23,7 +23,7 @@ isMoving = false
 accelerometerMoveTheshold = 0.9
 accelerometerYankScalar = 5
 
-crankScalar = 2
+crankScalar = 1.2
 bubbleCount = 0
 bubbleMax = 1
 bubblePositions = {}
@@ -47,7 +47,7 @@ function playdate.update()
     -- Cast line while holding B
     if playdate.buttonIsPressed("B") and not isCast and not isMoving then
         if gravityY < -accelerometerMoveTheshold then
-            -- how far can does the player throw
+            -- how far can the player throw
             local throwDistance = 150 
 
             -- Find target coordinates based on throw
@@ -96,7 +96,7 @@ function playdate.update()
         gfx.drawLine(player_x, player_y, bobber_x, bobber_y)
     end
 
-    print(isCast)
+    --print(isCast)
     -- playdate.drawFPS(0,0)
     -- gfx.drawText('bobber x: '..bobber_x, 0, 20)
     -- gfx.drawText('bobber y: '..bobber_y, 0, 40)
@@ -119,5 +119,4 @@ function playdate.cranked(change, acceleratedChange)
     if change > 1 then
         Push()
     end
-
 end

@@ -41,7 +41,7 @@ function Pull(pullScalar)
         end
 
         -- MOVE BOBBER
-        move_bobber(bobber_x, bobber_y, targetX, targetY, 30, 0, 0)
+        move_bobber(bobber_x, bobber_y, targetX, targetY, 35, 0, 0)
     end
 end
 
