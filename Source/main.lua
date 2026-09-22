@@ -22,12 +22,15 @@ resetCastDistanceThreshold = 20
 bobber = nil
 bubbleSprite = nil
 bubblePosition = {0, 0}
+bossBubbleSprite = nil
+bosBubblePosition = {0, 0}
 
 isCast = false
 fishHooked = false
 fishCaught = false
 isMoving = false
 justCastThisFrame = false
+spawnBoss = false
 
 accelerometerMoveTheshold = 0.9
 accelerometerYankScalar = 1.0
@@ -131,9 +134,15 @@ function playdate.update()
 
     justCastThisFrame = false
 
+    if player_skill >= 3 then
+        spawnBoss = true
+    end
+
     -- Bubble spawner
-    if bubbleSprite == nil and not fishHooked then
+    if bubbleSprite == nil and not fishHooked and not spawnBoss then
         spawn_bubble(0, math.random(20, 220))
+    elseif bossBubbleSprite == nil and not fishHooked and spawnBoss then
+        spawn_boss_bubble(0, 120)
     end
 
     -- Check if bubble overlaps with bobber
