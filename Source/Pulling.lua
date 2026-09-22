@@ -16,14 +16,9 @@ function Pull(pullScalar)
 
     if isCast then
         print("PULL")
-        -- Apply crank to pullScalar
 
-
-
-        -- Apply accelerometer to pullScalar
-
-        local dx = player_x - bobber_x
-        local dy = player_y - bobber_y
+        local dx = bobber_x - player_x
+        local dy = bobber_y - player_y
 
         local length = math.sqrt(dx * dx + dy * dy)
 
@@ -42,24 +37,17 @@ function Pull(pullScalar)
     end
 end
 
--- Only if a fish is caught should the crank value be restricted
-function playdate.cranked(change, acceleratedChange)
+pushX = 20
+pushY = -10
 
-    if change < -1 then
-        currentCrankChange = math.abs(change)
+function Push()
+    
+    if isCast then
+        targetX = bobber_x + pushX
+        targetY = bobber_y + pushY
     end
 
-end
-
-playdate.startAccelerometer()
-
-function readAccelerometerPull()
-	local gravityX, gravityY, gravityZ = playdate.readAccelerometer()
-
-    if gravityY > 0.9 then
-        applyAccel = true
-    else
-        applyAccel = false
-    end
-
+    -- MOVE BOBBER
+    move_bobber(bobber_x, bobber_y, targetX, targetY, 30, 0, 0)
+    
 end

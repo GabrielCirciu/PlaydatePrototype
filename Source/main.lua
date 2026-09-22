@@ -17,6 +17,8 @@ isCast = false
 fishHooked = false
 isMoving = false
 
+crankScalar = 2
+
 gfx.setColor(gfx.kColorBlack)
 
 createBackgroundSprite()
@@ -43,7 +45,7 @@ function playdate.update()
     end
 
     if playdate.buttonJustPressed(playdate.kButtonRight) then
-        Pull()
+        Pull(10)
     end
 
 
@@ -60,3 +62,14 @@ function playdate.update()
     gfx.drawText('player y: '..player_y, 0, 80)
 end
 
+function playdate.cranked(change, acceleratedChange)
+
+    if change < -1 then
+        Pull(change * crankScalar)
+    end
+
+    if change > 1 then
+        Push()
+    end
+
+end
