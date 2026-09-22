@@ -25,6 +25,7 @@ bubblePosition = {0, 0}
 
 isCast = false
 fishHooked = false
+fishCaught = false
 isMoving = false
 justCastThisFrame = false
 
@@ -118,6 +119,7 @@ function playdate.update()
         isCast = false
         if fishHooked then
             fishHooked = false
+            fishCaught = true
             player_skill += 1
         end
     end
@@ -142,6 +144,11 @@ function playdate.update()
     -- Reeling minigame
     if fishHooked then
         reeling_minigame()
+    end
+
+    if fishCaught then
+        -- Marcel, do your thing here :)
+        print("CAUGHT!")
     end
 
     gfx.sprite.update()

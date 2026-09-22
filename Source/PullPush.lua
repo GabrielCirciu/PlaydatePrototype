@@ -34,6 +34,7 @@ function Pull(pullScalar)
             isCast = false
             if fishHooked then
                 fishHooked = false
+                fishCaught = true
                 player_skill += 1
             end
             destroy_bobber()
