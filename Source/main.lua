@@ -2,6 +2,7 @@ import "background"
 import "fishing_throw"
 import "bobber_control"
 import "move_bobber"
+import "Pulling"
 
 local gfx = playdate.graphics
 
@@ -31,6 +32,11 @@ function playdate.update()
     elseif playdate.buttonJustPressed("B") and isCast and not isMoving then
         isCast = false
     end
+
+    if playdate.buttonJustPressed(playdate.kButtonRight) then
+        Pull()
+    end
+
 
     gfx.sprite.update()
 
