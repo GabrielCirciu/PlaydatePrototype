@@ -31,6 +31,7 @@ fishCaught = false
 isMoving = false
 justCastThisFrame = false
 spawnBoss = false
+stopSpawning = false
 
 accelerometerMoveTheshold = 0.9
 accelerometerYankScalar = 1.0
@@ -139,10 +140,11 @@ function playdate.update()
     end
 
     -- Bubble spawner
-    if bubbleSprite == nil and not fishHooked and not spawnBoss then
+    if bubbleSprite == nil and not fishHooked and not spawnBoss and not stopSpawning then
         spawn_bubble(0, math.random(20, 220))
-    elseif bossBubbleSprite == nil and not fishHooked and spawnBoss then
+    elseif bossBubbleSprite == nil and not fishHooked and spawnBoss and not stopSpawning then
         spawn_boss_bubble(0, 120)
+        stopSpawning = true
     end
 
     -- Check if bubble overlaps with bobber
