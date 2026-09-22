@@ -34,7 +34,33 @@ throwDistance = 90
 
 gfx.setColor(gfx.kColorBlack)
 
+local function createFishingLineSprite()
+    local lineSprite = gfx.sprite.new()
+    lineSprite:setBounds(0, 0, 400, 240)
+    lineSprite:setZIndex(50) -- Below bobber (100) and bubbles (101) so it can be covered up
+
+    function lineSprite:draw(x, y, width, height)
+        if isCast then
+            gfx.setColor(gfx.kColorBlack)
+            gfx.drawLine(player_x, player_y, bobber_x, bobber_y)
+        end
+    end
+
+    local wasCast = false
+    function lineSprite:update()
+        if isCast or wasCast then
+            self:markDirty()
+        end
+        wasCast = isCast
+    end
+
+    lineSprite:setOpaque(false)
+    lineSprite:add()
+    return lineSprite
+end
+
 createBackgroundSprite()
+fishingLineSprite = createFishingLineSprite()
 playdate.startAccelerometer()
 
 function playdate.update()
@@ -115,10 +141,6 @@ function playdate.update()
     end
 
     gfx.sprite.update()
-    
-    if isCast then
-        gfx.drawLine(player_x, player_y, bobber_x, bobber_y)
-    end
 
     --print(isCast)
     -- playdate.drawFPS(0,0)
