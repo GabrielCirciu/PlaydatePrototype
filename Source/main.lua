@@ -5,7 +5,7 @@ local gfx = playdate.graphics
 
 bobber_x = 0
 bobber_y = 0
-player_x = 220
+player_x = 200
 player_y = 220
 
 isCast = false
@@ -14,14 +14,17 @@ fishHooked = false
 gfx.setColor(gfx.kColorBlack)
 
 createBackgroundSprite()
+playdate.startAccelerometer()
 
 function playdate.update()
-    -- Will be replaced with accelerometer in the future
-    if playdate.buttonJustPressed("A") and not isCast then
+    gravityX, gravityY, gravityZ = playdate.readAccelerometer()
+
+    -- Cast line
+    if playdate.buttonJustPressed("A") or gravityY > 0.9 and not isCast then
         isCast = true
         throw_line(math.random(100, 300), math.random(20, 220))
-    -- Will be repleaced with interaction to pull back line in the future
-    elseif playdate.buttonJustPressed("B") and isCast then
+    -- Reel in line
+    elseif playdate.buttonJustPressed("B") or gravityY < -0.9 and isCast then
         isCast = false
     end
 
