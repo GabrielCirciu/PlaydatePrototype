@@ -44,30 +44,31 @@ function playdate.update()
     end
     --]]
 
-    -- Cast line
+    -- Cast line while holding B
     if playdate.buttonIsPressed("B") and not isCast and not isMoving then
         if gravityY < -accelerometerMoveTheshold then
-            local throwDistance = 150 -- tune this to taste — how far the line casts
+            -- how far can does the player throw
+            local throwDistance = 150 
 
+            -- Find target coordinates based on throw
             local targetX = player_x + (gravityX * throwDistance)
             local targetY = player_y + (gravityY * throwDistance)
 
+            -- Limit to screen space
             if targetX >= 400 then
                 targetX = 400
             elseif targetX < 0 then
                 targetX = 0
             end        
-
             if targetY >= 240 then
                 targetY = 240
             elseif targetY < 0 then
                 targetY = 0
             end
-                
-
+            
+            print("THROW!")
             throw_line(targetX, targetY)
             isCast = true
-            print("THROW!")
         end
     end
 
