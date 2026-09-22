@@ -2,7 +2,6 @@ import "background"
 import "fishing_throw"
 import "bobber_control"
 import "move_bobber"
-import "Pulling"
 import "spawn_bubble"
 
 local gfx = playdate.graphics
@@ -18,7 +17,6 @@ isCast = false
 fishHooked = false
 isMoving = false
 
-crankScalar = 2
 bubbleCount = 0
 bubbleMax = 1
 bubblePositions = {}
@@ -49,10 +47,6 @@ function playdate.update()
         move_bobber(bobber_x, bobber_y, player_x, player_y, 30, 0, 0)
     end
 
-    if playdate.buttonJustPressed(playdate.kButtonRight) then
-        Pull(10)
-    end
-
     -- Random chance of spawning bubble
     if math.random(1, 100) == 1 and bubbleCount < bubbleMax then
         spawn_bubble(50, math.random(20, 220))
@@ -70,14 +64,3 @@ function playdate.update()
     -- gfx.drawText('player y: '..player_y, 0, 80)
 end
 
-function playdate.cranked(change, acceleratedChange)
-
-    if change < -1 then
-        Pull(change * crankScalar)
-    end
-
-    if change > 1 then
-        Push()
-    end
-
-end
