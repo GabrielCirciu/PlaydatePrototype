@@ -8,6 +8,11 @@ function spawn_bubble(posX, posY)
     bubbleSprites[bubbleCount]:setZIndex(200 + bubbleCount)
     bubbleSprites[bubbleCount]:add()
     bubbleCount = bubbleCount + 1
+end
 
-    
+function move_bubbles()
+    for i = 0, bubbleCount - 1 do
+        bubblePositions[i][1] = bubblePositions[i][1] + 1
+        bubbleSprites[i]:moveTo(bubblePositions[i][1], bubblePositions[i][2])
+    end
 end

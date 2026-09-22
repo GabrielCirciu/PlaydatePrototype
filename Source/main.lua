@@ -86,10 +86,13 @@ function playdate.update()
         move_bobber(bobber_x, bobber_y, player_x, player_y, 30, 0, 0)
     end
 
-    -- Random chance of spawning bubble
-    if math.random(1, 100) == 1 and bubbleCount < bubbleMax then
+    -- Every 2 seconds spawn a bubble
+    if playdate.getSecondsSinceEpoch() % 2 == 0 and bubbleCount < bubbleMax then
         spawn_bubble(50, math.random(20, 220))
     end
+
+    -- Move bubble sprites to the right
+    move_bubbles()
 
     gfx.sprite.update()
     if isCast then
