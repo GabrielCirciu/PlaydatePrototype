@@ -1,5 +1,7 @@
 import "background"
 import "fishing_throw"
+import "bobber_control"
+import "move_bobber"
 
 local gfx = playdate.graphics
 
@@ -8,8 +10,11 @@ bobber_y = 0
 player_x = 200
 player_y = 220
 
+bobber = nil
+
 isCast = false
 fishHooked = false
+isMoving = false
 
 gfx.setColor(gfx.kColorBlack)
 
@@ -20,11 +25,10 @@ function playdate.update()
     gravityX, gravityY, gravityZ = playdate.readAccelerometer()
 
     -- Cast line
-    if playdate.buttonJustPressed("A") or gravityY > 0.9 and not isCast then
+    if playdate.buttonJustPressed("A") and not isCast and not isMoving then
         isCast = true
         throw_line(math.random(100, 300), math.random(20, 220))
-    -- Reel in line
-    elseif playdate.buttonJustPressed("B") or gravityY < -0.9 and isCast then
+    elseif playdate.buttonJustPressed("B") and isCast and not isMoving then
         isCast = false
     end
 
