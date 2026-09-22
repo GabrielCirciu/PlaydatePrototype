@@ -37,16 +37,43 @@ playdate.startAccelerometer()
 function playdate.update()
     gravityX, gravityY, gravityZ = playdate.readAccelerometer()
 
-    -- Cast line
+    --[[
     if playdate.buttonJustPressed("A") and not isCast and not isMoving then
         isCast = true
         throw_line(math.random(100, 300), math.random(20, 220))
     end
+    --]]
 
-    -- if playdate.buttonH("A") and not isCast and not isMoving then
+    -- Cast line
+    if playdate.buttonIsPressed("B") and not isCast and not isMoving then
+        if gravityY < -accelerometerMoveTheshold then
+            local throwDistance = 150 -- tune this to taste — how far the line casts
+
+            local targetX = player_x + (gravityX * throwDistance)
+            local targetY = player_y + (gravityY * throwDistance)
+
+            if targetX >= 400 then
+                targetX = 400
+            elseif targetX < 0 then
+                targetX = 0
+            end        
+
+            if targetY >= 240 then
+                targetY = 240
+            elseif targetY < 0 then
+                targetY = 0
+            end
+                
+
+            throw_line(targetX, targetY)
+            isCast = true
+            print("THROW!")
+        end
+    end
+
 
     -- Yank with accelerometer
-    if isCast then
+    if isCast and not isMoving then
         if math.abs(gravityX) > accelerometerMoveTheshold or math.abs(gravityY) > accelerometerMoveTheshold then
             move_bobber(bobber_x, bobber_y, bobber_x + (gravityX * accelerometerYankScalar), bobber_y + (gravityY * accelerometerYankScalar), 5, 0, 0)
         end    
@@ -68,6 +95,7 @@ function playdate.update()
         gfx.drawLine(player_x, player_y, bobber_x, bobber_y)
     end
 
+    print(isCast)
     -- playdate.drawFPS(0,0)
     -- gfx.drawText('bobber x: '..bobber_x, 0, 20)
     -- gfx.drawText('bobber y: '..bobber_y, 0, 40)
