@@ -7,7 +7,6 @@ currentCrankChange = 0
 accelMoveValue = 10
 
 local targetX = 0
-local targetY = 0
 
 local dirToPlayerY = 0
 local dirToPlayerX = 0
@@ -15,7 +14,7 @@ local dirToPlayerX = 0
 function Pull(pullScalar)
 
     if isCast then
-        print("PULL")
+        --print("PULL")
 
         local dx = bobber_x - player_x
         local dy = bobber_y - player_y

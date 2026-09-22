@@ -2,7 +2,7 @@ import "background"
 import "fishing_throw"
 import "bobber_control"
 import "move_bobber"
-import "Pulling"
+import "PullPush"
 
 local gfx = playdate.graphics
 
@@ -44,9 +44,6 @@ function playdate.update()
         move_bobber(bobber_x, bobber_y, player_x, player_y, 30, 0, 0)
     end
 
-    if playdate.buttonJustPressed(playdate.kButtonRight) then
-        Pull(10)
-    end
 
 
     gfx.sprite.update()
@@ -64,12 +61,13 @@ end
 
 function playdate.cranked(change, acceleratedChange)
 
-    if change < -1 then
-        Pull(change * crankScalar)
-    end
+    if(isCast) then
+        if change < -1 then
+          Pull(change * crankScalar)
+        end
 
-    if change > 1 then
-        Push()
+        if change > 1 then
+            Push()
+        end
     end
-
 end
