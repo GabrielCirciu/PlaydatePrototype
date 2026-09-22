@@ -15,7 +15,7 @@ local dirToPlayerX = 0
 function Pull(pullScalar)
 
     if isCast then
-        print("PULL")
+        --print("PULL")
 
         local dx = bobber_x - player_x
         local dy = bobber_y - player_y

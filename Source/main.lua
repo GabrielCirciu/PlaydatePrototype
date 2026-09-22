@@ -2,7 +2,7 @@ import "background"
 import "fishing_throw"
 import "bobber_control"
 import "move_bobber"
-import "Pulling"
+import "PullPush"
 import "spawn_bubble"
 
 local gfx = playdate.graphics
