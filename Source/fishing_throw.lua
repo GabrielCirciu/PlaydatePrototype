@@ -1,4 +1,5 @@
 import "move_bobber"
+import "reel_fish"
 
 local gfx = playdate.graphics
 
@@ -28,5 +29,6 @@ function destroy_bobber()
         bobber:remove()
         bobber = nil
     end
+    reset_reeling()
     isMoving = false
 end

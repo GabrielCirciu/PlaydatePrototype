@@ -26,6 +26,10 @@ function destroy_bubble()
         bubbleSprite:remove()
         bubbleSprite = nil
         bubblePosition = {0, 0}
+    elseif bossBubbleSprite then
+        bossBubbleSprite:remove()
+        bossBubbleSprite = nil
+        bossBubblePosition = {0, 0}
     end
 end
 

@@ -23,7 +23,7 @@ bobber = nil
 bubbleSprite = nil
 bubblePosition = {0, 0}
 bossBubbleSprite = nil
-bosBubblePosition = {0, 0}
+bossBubblePosition = {0, 0}
 
 isCast = false
 fishHooked = false

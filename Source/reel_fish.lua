@@ -3,10 +3,16 @@ local gfx = playdate.graphics
 local fishDirection = 0
 local fishMoveTimer = 0
 local isReeling = false
+local distance = 10000
 
 function overlapping_fish_bobber_check()
     -- Check distance between the bobber and the bubble
-    local distance = math.sqrt((bubblePosition[1] - bobber_x)^2 + (bubblePosition[2] - bobber_y)^2)
+    if not spawnBoss then
+        distance = math.sqrt((bubblePosition[1] - bobber_x)^2 + (bubblePosition[2] - bobber_y)^2)
+    else
+        distance = math.sqrt((bossBubblePosition[1] - bobber_x)^2 + (bossBubblePosition[2] - bobber_y)^2)
+    end
+    
     if distance < 20 and not fishHooked then
         fishHooked = true
         -- Show background.png for 1 seconds in the middle of the screen
@@ -44,4 +50,8 @@ function reeling_minigame()
             set_bobber_target(newBobberX, newBobberY)
         end
     end
+end
+
+function reset_reeling()
+    isReeling = false
 end
