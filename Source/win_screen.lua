@@ -6,7 +6,7 @@ function winscreen()
     if winSprite == nil then
         winSprite = gfx.sprite.new()
         
-        winSprite:setImage(gfx.image.new("SystemAssets/launchImage.png"))
+        winSprite:setImage(gfx.image.new("SystemAssets/win_popup.png"))
         
         winSprite:setZIndex(999)
     end
@@ -17,4 +17,5 @@ function winscreen()
     -- SoundManager:playSound(SoundManager.WIN)
 
     print("WIN!!!")
+    isWon = true
 end

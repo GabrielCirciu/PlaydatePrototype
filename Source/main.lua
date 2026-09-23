@@ -9,6 +9,7 @@ import "reel_fish"
 import "intro"
 import "sound_manager"
 import "caught_popup"
+import "win_screen"
 
 local gfx = playdate.graphics
 
@@ -21,6 +22,7 @@ bobber_target_y = 0
 player_x = 205
 player_y = 195
 player_skill = 1
+spawnBossAtFishCount = 4
 
 resetCastDistanceThreshold = 20
 
@@ -37,6 +39,7 @@ isMoving = false
 justCastThisFrame = false
 spawnBoss = false
 stopSpawning = false
+isWon = false
 
 accelerometerMoveTheshold = 0.9
 accelerometerYankScalar = 1.0
@@ -84,7 +87,7 @@ function playdate.update()
     playdate.timer.updateTimers()
     gfx.sprite.update()
 
-    if isIntro then
+    if isIntro or isWon then
         return
     end
 
@@ -154,7 +157,7 @@ function playdate.update()
 
     justCastThisFrame = false
 
-    if player_skill >= 3 then
+    if player_skill >= spawnBossAtFishCount then
         spawnBoss = true
     end
 
@@ -183,16 +186,12 @@ function playdate.update()
 
     -- When fish is fully reeled in
     if fishCaught then
-        -- TODO: Marcel, do your thing here :)
-        
         caughtPopup()
-    
     end
 
     -- Player won the game and reeled in boss fish
     if stopSpawning then
-        -- TODO: Win screen
-        print("YOU WON!")
+        winscreen()
     end
 
     

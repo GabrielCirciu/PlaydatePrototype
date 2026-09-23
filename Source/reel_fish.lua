@@ -34,7 +34,11 @@ function reeling_minigame()
     if not isReeling then
         isReeling = true
         -- change bobber image to a hooked fish
-        bobber:setImage(gfx.image.new("SystemAssets/hooked_fish.png"))
+        if not spawnBoss then
+            bobber:setImage(gfx.image.new("SystemAssets/hooked_fish.png"))
+        else
+            bobber:setImage(gfx.image.new("SystemAssets/hooked_boss.png"))
+        end
     end
 
     -- Every second the fish decides on a direction to swim
