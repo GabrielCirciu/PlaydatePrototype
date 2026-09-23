@@ -26,9 +26,9 @@ resetCastDistanceThreshold = 20
 
 bobber = nil
 bubbleSprite = nil
-bubblePosition = {0, 0}
+bubblePosition = {0, math.random(20, 220)}
 bossBubbleSprite = nil
-bossBubblePosition = {0, 0}
+bossBubblePosition = {0, math.random(20, 220)}
 
 isCast = false
 fishHooked = false

@@ -50,7 +50,7 @@ function spawn_boss_bubble(posX, posY)
         if bossBubblePosition[1] > 400 then
             self:remove()
             bossBubbleSprite = nil
-            bossBubblePosition = {0, 0}
+            bossBubblePosition = {0, math.random(20, 220)}
         end
     end
 end
