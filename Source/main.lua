@@ -8,6 +8,7 @@ import "spawn_bubble"
 import "reel_fish"
 import "intro"
 import "sound_manager"
+import "caught_popup"
 
 local gfx = playdate.graphics
 
@@ -172,7 +173,9 @@ function playdate.update()
     -- When fish is fully reeled in
     if fishCaught then
         -- TODO: Marcel, do your thing here :)
-        print("CAUGHT!")
+        
+        caughtPopup()
+    
     end
 
     -- Player won the game and reeled in boss fish
