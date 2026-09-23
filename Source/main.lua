@@ -18,8 +18,8 @@ bobber_x = 0
 bobber_y = 0
 bobber_target_x = 0
 bobber_target_y = 0
-player_x = 200
-player_y = 220
+player_x = 205
+player_y = 195
 player_skill = 1
 
 resetCastDistanceThreshold = 20
@@ -48,7 +48,7 @@ gfx.setColor(gfx.kColorBlack)
 local function createFishingLineSprite()
     local lineSprite = gfx.sprite.new()
     lineSprite:setBounds(0, 0, 400, 240)
-    lineSprite:setZIndex(50) -- Below bobber (100) and bubbles (101) so it can be covered up
+    lineSprite:setZIndex(100) -- Below bobber (100) and bubbles (101) so it can be covered up
 
     function lineSprite:draw(x, y, width, height)
         if isCast then
@@ -72,6 +72,8 @@ end
 
 showIntroScreen()
 createBackgroundSprite()
+createShoreSprite()
+createCharacterSprite()
 fishingLineSprite = createFishingLineSprite()
 playdate.startAccelerometer()
 SoundManager:playBackgroundMusic()
@@ -160,7 +162,7 @@ function playdate.update()
     if bubbleSprite == nil and not fishHooked and not spawnBoss and not stopSpawning then
         -- Wait 2 seconds before spawning bubble
         playdate.timer.new(2000, function()
-            spawn_bubble(0, math.random(20, 220))
+            spawn_bubble(0, math.random(20, 200))
         end)
     elseif bossBubbleSprite == nil and not fishHooked and spawnBoss and not stopSpawning then
         -- Wait 2 seconds before spawning boss bubble
@@ -175,7 +177,7 @@ function playdate.update()
     end
 
     -- Reeling minigame
-    if fishHooked then
+    if fishHooked and bobber ~= nil then
         reeling_minigame()
     end
 

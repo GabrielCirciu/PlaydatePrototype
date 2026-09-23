@@ -29,3 +29,21 @@ function createBackgroundSprite()
 	bg:setZIndex(0)
 	bg:add()
 end
+
+function createShoreSprite()
+    local shore = gfx.sprite.new()
+    local shoreImg = gfx.image.new('SystemAssets/shore.png')
+    shore:setImage(shoreImg)
+    shore:moveTo(200, 140)
+    shore:setZIndex(200)
+    shore:add()
+end
+
+function createCharacterSprite()
+    local char = gfx.sprite.new()
+    local charImg = gfx.image.new('SystemAssets/character.png')
+    char:setImage(charImg)
+    char:moveTo(200, 195)
+    char:setZIndex(201)
+    char:add()
+end
