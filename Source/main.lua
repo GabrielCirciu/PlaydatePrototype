@@ -31,6 +31,7 @@ bubbleSprite = nil
 bubblePosition = {0, math.random(20, 220)}
 bossBubbleSprite = nil
 bossBubblePosition = {0, math.random(20, 220)}
+bubbleTimer = nil
 
 isCast = false
 fishHooked = false
@@ -162,15 +163,21 @@ function playdate.update()
     end
 
     -- Bubble spawner
-    if bubbleSprite == nil and not fishHooked and not spawnBoss and not stopSpawning then
+    if bubbleSprite == nil and not fishHooked and not spawnBoss and not stopSpawning and bubbleTimer == nil then
         -- Wait 2 seconds before spawning bubble
-        playdate.timer.new(2000, function()
-            spawn_bubble(0, math.random(20, 200))
+        bubbleTimer = playdate.timer.new(2000, function()
+            bubbleTimer = nil
+            if not fishHooked and not spawnBoss and not stopSpawning then
+                spawn_bubble(0, math.random(20, 200))
+            end
         end)
-    elseif bossBubbleSprite == nil and not fishHooked and spawnBoss and not stopSpawning then
+    elseif bossBubbleSprite == nil and not fishHooked and spawnBoss and not stopSpawning and bubbleTimer == nil then
         -- Wait 2 seconds before spawning boss bubble
-        playdate.timer.new(2000, function()
-            spawn_boss_bubble(0, 120)
+        bubbleTimer = playdate.timer.new(2000, function()
+            bubbleTimer = nil
+            if not fishHooked and spawnBoss and not stopSpawning then
+                spawn_boss_bubble(0, 120)
+            end
         end)
     end
 
