@@ -75,6 +75,7 @@ createBackgroundSprite()
 fishingLineSprite = createFishingLineSprite()
 playdate.startAccelerometer()
 SoundManager:playBackgroundMusic()
+spawn_bubble(0, math.random(20, 220))
 
 function playdate.update()
     gravityX, gravityY, gravityZ = playdate.readAccelerometer()
@@ -157,9 +158,15 @@ function playdate.update()
 
     -- Bubble spawner
     if bubbleSprite == nil and not fishHooked and not spawnBoss and not stopSpawning then
-        spawn_bubble(0, math.random(20, 220))
+        -- Wait 2 seconds before spawning bubble
+        playdate.timer.new(2000, function()
+            spawn_bubble(0, math.random(20, 220))
+        end)
     elseif bossBubbleSprite == nil and not fishHooked and spawnBoss and not stopSpawning then
-        spawn_boss_bubble(0, 120)
+        -- Wait 2 seconds before spawning boss bubble
+        playdate.timer.new(2000, function()
+            spawn_boss_bubble(0, 120)
+        end)
     end
 
     -- Check if bubble overlaps with bobber

@@ -41,6 +41,7 @@ function spawn_boss_bubble(posX, posY)
         bossBubbleSprite:moveTo(posX, posY)
         bossBubbleSprite:setZIndex(101)
         bossBubbleSprite:add()
+        SoundManager:playSound(SoundManager.bossSpawn)
     end
 
     function bossBubbleSprite:update()

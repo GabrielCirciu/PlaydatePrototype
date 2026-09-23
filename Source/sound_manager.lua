@@ -7,6 +7,7 @@ SoundManager.bobberLand = 'bobber_land'
 SoundManager.fishHooked = 'fish_hooked'
 SoundManager.fishPull = 'fish_pull'
 SoundManager.fishCaught = 'fish_caught'
+SoundManager.bossSpawn = 'boss_spawn'
 
 local sounds = {}
 

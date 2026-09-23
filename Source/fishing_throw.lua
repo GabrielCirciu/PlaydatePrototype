@@ -14,7 +14,7 @@ function throw_line(destX, destY)
         bobber:setZIndex(100)
         bobber:add()
         SoundManager:playSound(SoundManager.throwLine)
-        playdate.timer.performAfterDelay(100, function()
+        playdate.timer.performAfterDelay(200, function()
             SoundManager:playSound(SoundManager.bobberLand)
         end)
     end
