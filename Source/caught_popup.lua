@@ -10,10 +10,8 @@ function caughtPopup()
         print(player_skill, " Player skill")
 
         if player_skill < 4 then
-            -- PLACEHOLDER 
-            popupSprite:setImage(gfx.image.new("SystemAssets/reeled_popup.png"))
+            popupSprite:setImage(gfx.image.new("SystemAssets/caught_popup.png"))
         elseif player_skill >= 4 then
-            -- PLACEHOLDER
             popupSprite:setImage(gfx.image.new("SystemAssets/boss_bubble.png"))
         end
 
