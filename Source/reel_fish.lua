@@ -22,6 +22,7 @@ function overlapping_fish_bobber_check()
         alertSprite:setZIndex(999)
         alertSprite:add()
         destroy_bubble()
+        SoundManager:playSound(SoundManager.fishHooked)
         playdate.timer.performAfterDelay(1000, function()
             alertSprite:remove()
             alertSprite = nil
@@ -44,6 +45,8 @@ function reeling_minigame()
         local rad = math.rad(fishDirection)
         local newBobberX = bobber_x + math.sin(rad) * 100
         local newBobberY = bobber_y - math.cos(rad) * 50
+
+        SoundManager:playSound(SoundManager.fishPull)
 
         -- Check if new position is within screen bounds
         if newBobberX >= 0 and newBobberX <= 400 and newBobberY >= 0 and newBobberY <= 240 then

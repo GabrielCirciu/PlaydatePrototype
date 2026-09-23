@@ -13,6 +13,10 @@ function throw_line(destX, destY)
         bobber:setImage(bobber_image)
         bobber:setZIndex(100)
         bobber:add()
+        SoundManager:playSound(SoundManager.throwLine)
+        playdate.timer.performAfterDelay(100, function()
+            SoundManager:playSound(SoundManager.bobberLand)
+        end)
     end
 
     -- start bobber at player position and set destination target

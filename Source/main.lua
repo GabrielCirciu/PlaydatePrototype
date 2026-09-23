@@ -7,6 +7,7 @@ import "PullPush"
 import "spawn_bubble"
 import "reel_fish"
 import "intro"
+import "sound_manager"
 
 local gfx = playdate.graphics
 
@@ -72,6 +73,7 @@ showIntroScreen()
 createBackgroundSprite()
 fishingLineSprite = createFishingLineSprite()
 playdate.startAccelerometer()
+SoundManager:playBackgroundMusic()
 
 function playdate.update()
     gravityX, gravityY, gravityZ = playdate.readAccelerometer()
@@ -134,6 +136,7 @@ function playdate.update()
             fishHooked = false
             fishCaught = true
             player_skill += 1
+            SoundManager:playSound(SoundManager.fishCaught)
         end
     end
 
