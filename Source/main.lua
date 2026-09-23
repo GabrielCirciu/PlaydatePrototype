@@ -138,6 +138,9 @@ function playdate.update()
             fishCaught = true
             player_skill += 1
             SoundManager:playSound(SoundManager.fishCaught)
+            if spawnBoss then
+                stopSpawning = true
+            end
         end
     end
 
@@ -157,7 +160,6 @@ function playdate.update()
         spawn_bubble(0, math.random(20, 220))
     elseif bossBubbleSprite == nil and not fishHooked and spawnBoss and not stopSpawning then
         spawn_boss_bubble(0, 120)
-        stopSpawning = true
     end
 
     -- Check if bubble overlaps with bobber
