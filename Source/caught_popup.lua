@@ -29,5 +29,10 @@ function caughtPopup()
     playdate.timer.performAfterDelay(popupTime, function()
         popupSprite:remove()
         popupSprite = nil
+
+        if stopSpawning then
+            winscreen()
+        end
+
     end)
 end
