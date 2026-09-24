@@ -208,7 +208,7 @@ function playdate.update()
     end
 
     -- When fish is fully reeled in
-    if fishCaught then
+    if fishCaught and not stopSpawning then
         caughtPopup()
     end
 
@@ -217,15 +217,6 @@ function playdate.update()
         winscreen()
     end
 
-    
-
-    --print(isCast)
-    -- playdate.drawFPS(0,0)
-    -- gfx.drawText('bobber x: '..bobber_x, 0, 20)
-    -- gfx.drawText('bobber y: '..bobber_y, 0, 40)
-    -- gfx.drawText('player x: '..player_x, 0, 60)
-    -- gfx.drawText('player y: '..player_y, 0, 80)
-    -- gfx.drawText('player skill: '..player_skill, 0, 100)
 end
 
 -- Use crank to reel in or give line to bobber
