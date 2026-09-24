@@ -34,7 +34,11 @@ function overlapping_fish_bobber_check()
         alertSpriteText:setAnimator(textAnimator)
         
         local alertSpriteFish = gfx.sprite.new()
-        alertSpriteFish:setImage(gfx.image.new("SystemAssets/hooked_popup_fish.png"))
+        if spawnBoss then
+            alertSpriteFish:setImage(gfx.image.new("SystemAssets/hooked_popup_boss.png"))
+        else
+            alertSpriteFish:setImage(gfx.image.new("SystemAssets/hooked_popup_fish.png"))
+        end
         alertSpriteFish:moveTo(-100, 120)
         alertSpriteFish:setZIndex(999)
         alertSpriteFish:add()
