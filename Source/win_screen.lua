@@ -1,9 +1,13 @@
+import "sound_manager"
+
 local gfx = playdate.graphics
 
 local winSpriteText = nil
 local winSpriteFish = nil
 
 function winscreen()
+
+
     winSpriteText = gfx.sprite.new()
     winSpriteText:setImage(gfx.image.new("SystemAssets/win_popup_text.png"))
     winSpriteText:setZIndex(2000)
@@ -16,7 +20,7 @@ function winscreen()
     winSpriteFish:moveTo(200, 120)
     winSpriteFish:add()   
 
-    -- SoundManager:playSound(SoundManager.WIN)
+    SoundManager:playMusicWin()
 
     print("WIN!!!")
     isWon = true

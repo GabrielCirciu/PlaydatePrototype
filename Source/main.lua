@@ -187,6 +187,7 @@ function playdate.update()
             fishCaught = true
             player_skill += 1
             SoundManager:playSound(SoundManager.fishCaught)
+            SoundManager:playBackgroundMusic()
             if spawnBoss then
                 print("STOP SPAWNING!")
                 stopSpawning = true
@@ -220,6 +221,7 @@ function playdate.update()
             bubbleTimer = nil
             if not fishHooked and spawnBoss and not stopSpawning then
                 spawn_boss_bubble(0, 100)
+                SoundManager:stopMusic()
             end
         end)
     end

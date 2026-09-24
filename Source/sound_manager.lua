@@ -17,17 +17,45 @@ end
 
 SoundManager.sounds = sounds
 
-function SoundManager:playSound(name)
-	self.sounds[name]:play(1)		
-end
+local currentMusicPlayer = nil
 
+function SoundManager:playSound(name)
+	if self.sounds[name] then
+		self.sounds[name]:play(1)
+	end
+end
 
 function SoundManager:stopSound(name)
-	self.sounds[name]:stop()
+	if self.sounds[name] then
+		self.sounds[name]:stop()
+	end
 end
 
+function SoundManager:playMusic(path)
+	if currentMusicPlayer ~= nil then
+		currentMusicPlayer:stop()
+	end
+	currentMusicPlayer = snd.fileplayer.new(path)
+	if currentMusicPlayer ~= nil then
+		currentMusicPlayer:play(0) -- repeat forever
+	end
+end
+
+function SoundManager:stopMusic()
+	if currentMusicPlayer ~= nil then
+		currentMusicPlayer:stop()
+		currentMusicPlayer = nil
+	end
+end
 
 function SoundManager:playBackgroundMusic()
-	local filePlayer = snd.fileplayer.new('sfx/music')
-	filePlayer:play(0) -- repeat forever
+	self:playMusic('sfx/music_idle')
+end
+
+function SoundManager:playMusicCatching()
+	self:playMusic('sfx/music_catching')
+end
+
+function SoundManager:playMusicWin()
+	self:playMusic('sfx/music_win')
 end

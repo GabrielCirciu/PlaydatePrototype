@@ -1,3 +1,5 @@
+import "sound_manager"
+
 local gfx = playdate.graphics
 
 local fishDirection = 0
@@ -16,6 +18,7 @@ function overlapping_fish_bobber_check()
     if distance < 20 and not fishHooked then
         fishHooked = true
         SoundManager:playSound(SoundManager.fishHooked)
+        SoundManager:playMusicCatching()
         destroy_bubble()
         isAnimPlaying = true
 

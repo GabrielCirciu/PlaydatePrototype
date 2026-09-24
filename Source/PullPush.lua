@@ -37,6 +37,7 @@ function Pull(pullScalar)
                 fishCaught = true
                 player_skill += 1
                 SoundManager:playSound(SoundManager.fishCaught)
+                SoundManager:playBackgroundMusic()
                 if spawnBoss then
                     stopSpawning = true
                 end
