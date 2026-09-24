@@ -59,17 +59,17 @@ function caughtPopup()
     popupSpriteFish3:setZIndex(904)
     popupSpriteFish3:add()
 
-    local scrollDuration = 800
+    local scrollDuration = 1500
     local fish1Anim = gfx.animator.new(
         scrollDuration,
         playdate.geometry.point.new(200, 110),
-        playdate.geometry.point.new(600, 110),
+        playdate.geometry.point.new(700, 110),
         playdate.easingFunctions.outCubic
     )
     local fish2Anim = gfx.animator.new(
         scrollDuration,
         playdate.geometry.point.new(-200, 110),
-        playdate.geometry.point.new(600, 110),
+        playdate.geometry.point.new(500, 110),
         playdate.easingFunctions.outCubic
     )
     local fish3Anim = gfx.animator.new(

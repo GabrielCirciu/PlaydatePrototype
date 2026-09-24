@@ -47,15 +47,28 @@ function overlapping_fish_bobber_check()
         local startPoint = playdate.geometry.point.new(200, 300)
         local endPoint = playdate.geometry.point.new(200, 120)
         local fishAnimator = gfx.animator.new(200, startPoint, endPoint, playdate.easingFunctions.outCubic)
+        if spawnBoss then
+            fishAnimator = gfx.animator.new(500, startPoint, endPoint, playdate.easingFunctions.outCubic)
+        end
         alertSpriteFish:setAnimator(fishAnimator)
-
-        playdate.timer.performAfterDelay(1000, function()
-            alertSpriteText:remove()
-            alertSpriteText = nil
-            alertSpriteFish:remove()
-            alertSpriteFish = nil
-            isAnimPlaying = false
-        end)
+        
+        if spawnBoss then
+            playdate.timer.performAfterDelay(1500, function()
+                alertSpriteText:remove()
+                alertSpriteText = nil
+                alertSpriteFish:remove()
+                alertSpriteFish = nil
+                isAnimPlaying = false
+            end)
+        else
+            playdate.timer.performAfterDelay(1000, function()
+                alertSpriteText:remove()
+                alertSpriteText = nil
+                alertSpriteFish:remove()
+                alertSpriteFish = nil
+                isAnimPlaying = false
+            end)
+        end
     end
 end
 
