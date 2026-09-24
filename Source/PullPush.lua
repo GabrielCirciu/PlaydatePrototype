@@ -36,6 +36,10 @@ function Pull(pullScalar)
                 fishHooked = false
                 fishCaught = true
                 player_skill += 1
+                SoundManager:playSound(SoundManager.fishCaught)
+                if spawnBoss then
+                    stopSpawning = true
+                end
             end
             destroy_bobber()
         end

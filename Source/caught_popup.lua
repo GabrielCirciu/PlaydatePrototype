@@ -15,6 +15,10 @@ local fishOrders = {fishOrder1, fishOrder2, fishOrder3}
 local orderCount = 1
 
 function caughtPopup()
+    if stopSpawning then
+        return
+    end
+
     fishCaught = false
     SoundManager:playSound(SoundManager.fishCaught)
     isAnimPlaying = true
