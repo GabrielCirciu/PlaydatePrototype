@@ -12,10 +12,9 @@ import "intro"
 import "sound_manager"
 import "caught_popup"
 import "win_screen"
+import "tutorial"
 
 local gfx = playdate.graphics
-
-isIntro = true
 
 bobber_x = 0
 bobber_y = 0
@@ -44,6 +43,8 @@ spawnBoss = false
 stopSpawning = false
 isWon = false
 isAnimPlaying = false
+isIntro = true
+isTutorial = true
 
 accelerometerMoveTheshold = 0.9
 accelerometerMoveThesholdHoriz = 0.9
@@ -78,7 +79,7 @@ local function createFishingLineSprite()
     return lineSprite
 end
 
-showIntroScreen()
+
 createBackgroundSprite()
 createShoreSprite()
 createCharacterSprite()
@@ -86,26 +87,47 @@ fishingLineSprite = createFishingLineSprite()
 playdate.startAccelerometer()
 SoundManager:playBackgroundMusic()
 spawn_bubble(0, math.random(20, 160))
+showIntroScreen()
 
 function playdate.update()
     gravityX, gravityY, gravityZ = playdate.readAccelerometer()
     playdate.timer.updateTimers()
     gfx.sprite.update()
 
-    if isIntro or isWon or isAnimPlaying then
+    if isIntro then
+        if playdate.buttonJustPressed("A") then
+            removeIntroScreen()
+        end
         return
     end
 
-    --[[
-    if playdate.buttonJustPressed("A") and not isCast and not isMoving then
-        isCast = true
-        throw_line(math.random(100, 300), math.random(20, 220))
+    if isAnimPlaying then
+        return
     end
-    --]]
+
+    if isWon then
+        -- If button A is pressed quit game
+        if playdate.buttonJustPressed("A") then
+            if playdate.simulator then
+                playdate.simulator.exit()
+            else
+                playdate.exitToLauncher()
+            end
+        end
+        return
+    end
+
+    if isTutorial then
+        showTutorial()
+    end
 
     -- Cast line while holding B
     if playdate.buttonIsPressed("B") and not isCast then
         if gravityY < -accelerometerMoveTheshold then
+            if isTutorial then
+                removeTutorial()
+            end
+
             -- Find target coordinates based on throw
             local targetX = player_x + (gravityX * throwDistance)
             local targetY = player_y + (gravityY * throwDistance)

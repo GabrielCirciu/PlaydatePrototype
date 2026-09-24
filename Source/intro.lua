@@ -1,18 +1,22 @@
 local gfx = playdate.graphics
+introSprite = nil
 
 function showIntroScreen()
-    local introSprite = gfx.sprite.new()
+    if introSprite ~= nil then return end
+    introSprite = gfx.sprite.new()
     local introImage = gfx.image.new("SystemAssets/launchImage.png")
     
     introSprite:setImage(introImage)
     introSprite:moveTo(200, 120)
-    introSprite:setZIndex(1000) -- On top of everything
+    introSprite:setZIndex(3000) -- On top of everything
     introSprite:add()
+end
 
-    playdate.timer.performAfterDelay(1000, function()
+function removeIntroScreen()
+    if introSprite ~= nil then
         introSprite:remove()
         introSprite = nil
-        isIntro = false
-        print("Gameplay started!")
-    end)
+    end
+    isIntro = false
+    print("Gameplay started!")
 end
