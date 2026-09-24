@@ -28,9 +28,9 @@ resetCastDistanceThreshold = 20
 
 bobber = nil
 bubbleSprite = nil
-bubblePosition = {0, math.random(20, 220)}
+bubblePosition = {0, math.random(20, 200)}
 bossBubbleSprite = nil
-bossBubblePosition = {0, math.random(20, 220)}
+bossBubblePosition = {0, math.random(20, 200)}
 bubbleTimer = nil
 
 isCast = false
@@ -43,7 +43,7 @@ stopSpawning = false
 isWon = false
 
 accelerometerMoveTheshold = 0.9
-accelerometerYankScalar = 1.0
+accelerometerYankScalar = 10.0
 crankScalar = 0.05
 throwDistance = 90
 
@@ -81,7 +81,7 @@ createCharacterSprite()
 fishingLineSprite = createFishingLineSprite()
 playdate.startAccelerometer()
 SoundManager:playBackgroundMusic()
-spawn_bubble(0, math.random(20, 220))
+spawn_bubble(0, math.random(20, 200))
 
 function playdate.update()
     gravityX, gravityY, gravityZ = playdate.readAccelerometer()
@@ -120,6 +120,7 @@ function playdate.update()
             
             print("THROW!")
             throw_line(targetX, targetY)
+            accelerometerMoveTheshold = 0.7
             justCastThisFrame = true
         end
     end
@@ -128,6 +129,17 @@ function playdate.update()
     if isCast then
         if math.abs(gravityX) > accelerometerMoveTheshold or math.abs(gravityY) > accelerometerMoveTheshold then
             set_bobber_target(bobber_target_x + (gravityX * accelerometerYankScalar), bobber_target_y + (gravityY * accelerometerYankScalar))
+        end
+        -- Check for out of bounds
+        if bobber_target_x < 0 then
+            bobber_target_x = 0
+        elseif bobber_target_x > 400 then
+            bobber_target_x = 400
+        end
+        if bobber_target_y < 0 then
+            bobber_target_y = 0
+        elseif bobber_target_y > 200 then
+            bobber_target_y = 200
         end
     end
 
@@ -140,6 +152,7 @@ function playdate.update()
     if isCast and not justCastThisFrame and distanceToPlayer() < resetCastDistanceThreshold and targetDistanceToPlayer() < resetCastDistanceThreshold then
         destroy_bobber()
         isCast = false
+        accelerometerMoveTheshold = 0.9
         if fishHooked then
             fishHooked = false
             fishCaught = true

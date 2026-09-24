@@ -53,7 +53,7 @@ function reeling_minigame()
         SoundManager:playSound(SoundManager.fishPull)
 
         -- Check if new position is within screen bounds
-        if newBobberX >= 0 and newBobberX <= 400 and newBobberY >= 0 and newBobberY <= 240 then
+        if newBobberX >= 0 and newBobberX <= 400 and newBobberY >= 0 and newBobberY <= 200 then
             set_bobber_target(newBobberX, newBobberY)
         end
     end

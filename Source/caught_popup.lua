@@ -9,7 +9,7 @@ function caughtPopup()
 
         print(player_skill, " Player skill")
 
-        if player_skill < spawnBossAtFishCount then
+        if player_skill <= spawnBossAtFishCount then
             popupSprite:setImage(gfx.image.new("SystemAssets/caught_popup.png"))
             popupSprite:setZIndex(999)
         end
