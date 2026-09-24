@@ -16,7 +16,7 @@ function spawn_bubble(posX, posY)
         if bubblePosition[1] > 400 then
             self:remove()
             bubbleSprite = nil
-            bubblePosition = {0, math.random(20, 200)}
+            bubblePosition = {0, math.random(20, 180)}
         end
     end
 end
@@ -30,12 +30,12 @@ function destroy_bubble()
     if bubbleSprite then
         bubbleSprite:remove()
         bubbleSprite = nil
-        bubblePosition = {0, math.random(20, 200)}
+        bubblePosition = {0, math.random(20, 180)}
     end
     if bossBubbleSprite then
         bossBubbleSprite:remove()
         bossBubbleSprite = nil
-        bossBubblePosition = {0, math.random(20, 200)}
+        bossBubblePosition = {0, math.random(20, 180)}
     end
 end
 
@@ -56,7 +56,7 @@ function spawn_boss_bubble(posX, posY)
         if bossBubblePosition[1] > 400 then
             self:remove()
             bossBubbleSprite = nil
-            bossBubblePosition = {0, math.random(20, 200)}
+            bossBubblePosition = {0, math.random(20, 160)}
         end
     end
 end

@@ -30,9 +30,9 @@ resetCastDistanceThreshold = 20
 
 bobber = nil
 bubbleSprite = nil
-bubblePosition = {0, math.random(20, 200)}
+bubblePosition = {0, math.random(20, 160)}
 bossBubbleSprite = nil
-bossBubblePosition = {0, math.random(20, 200)}
+bossBubblePosition = {0, math.random(20, 160)}
 bubbleTimer = nil
 
 isCast = false
@@ -46,6 +46,7 @@ isWon = false
 isAnimPlaying = false
 
 accelerometerMoveTheshold = 0.9
+accelerometerMoveThesholdHoriz = 0.9
 accelerometerYankScalar = 10.0
 crankScalar = 0.05
 throwDistance = 90
@@ -84,7 +85,7 @@ createCharacterSprite()
 fishingLineSprite = createFishingLineSprite()
 playdate.startAccelerometer()
 SoundManager:playBackgroundMusic()
-spawn_bubble(0, math.random(20, 200))
+spawn_bubble(0, math.random(20, 160))
 
 function playdate.update()
     gravityX, gravityY, gravityZ = playdate.readAccelerometer()
@@ -123,15 +124,19 @@ function playdate.update()
             
             print("THROW!")
             throw_line(targetX, targetY)
-            accelerometerMoveTheshold = 0.7
+            accelerometerMoveThesholdHoriz = 0.5
             justCastThisFrame = true
         end
     end
 
     -- Yank with accelerometer
     if isCast then
-        if math.abs(gravityX) > accelerometerMoveTheshold or math.abs(gravityY) > accelerometerMoveTheshold then
-            set_bobber_target(bobber_target_x + (gravityX * accelerometerYankScalar), bobber_target_y + (gravityY * accelerometerYankScalar))
+        if math.abs(gravityX) > accelerometerMoveThesholdHoriz then
+            set_bobber_target(bobber_target_x + (gravityX * accelerometerYankScalar), bobber_target_y)
+        end
+        
+        if math.abs(gravityY) > accelerometerMoveTheshold then
+            set_bobber_target(bobber_target_x, bobber_target_y + (gravityY * accelerometerYankScalar))
         end
         -- Check for out of bounds
         if bobber_target_x < 0 then
@@ -155,13 +160,13 @@ function playdate.update()
     if isCast and not justCastThisFrame and distanceToPlayer() < resetCastDistanceThreshold and targetDistanceToPlayer() < resetCastDistanceThreshold then
         destroy_bobber()
         isCast = false
-        accelerometerMoveTheshold = 0.9
         if fishHooked then
             fishHooked = false
             fishCaught = true
             player_skill += 1
             SoundManager:playSound(SoundManager.fishCaught)
             if spawnBoss then
+                print("STOP SPAWNING!")
                 stopSpawning = true
             end
         end
@@ -184,7 +189,7 @@ function playdate.update()
         bubbleTimer = playdate.timer.new(2000, function()
             bubbleTimer = nil
             if not fishHooked and not spawnBoss and not stopSpawning then
-                spawn_bubble(0, math.random(20, 200))
+                spawn_bubble(0, math.random(20, 160))
             end
         end)
     elseif bossBubbleSprite == nil and not fishHooked and spawnBoss and not stopSpawning and bubbleTimer == nil then
@@ -192,7 +197,7 @@ function playdate.update()
         bubbleTimer = playdate.timer.new(2000, function()
             bubbleTimer = nil
             if not fishHooked and spawnBoss and not stopSpawning then
-                spawn_boss_bubble(0, 120)
+                spawn_boss_bubble(0, 100)
             end
         end)
     end
