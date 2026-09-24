@@ -15,17 +15,39 @@ function overlapping_fish_bobber_check()
     
     if distance < 20 and not fishHooked then
         fishHooked = true
-        -- Show background.png for 1 seconds in the middle of the screen
-        local alertSprite = gfx.sprite.new()
-        alertSprite:setImage(gfx.image.new("SystemAssets/reeled_popup.png"))
-        alertSprite:moveTo(200, 120)
-        alertSprite:setZIndex(999)
-        alertSprite:add()
-        destroy_bubble()
         SoundManager:playSound(SoundManager.fishHooked)
+        destroy_bubble()
+        isAnimPlaying = true
+
+        local alertSpriteText = gfx.sprite.new()
+        alertSpriteText:setImage(gfx.image.new("SystemAssets/hooked_popup_text.png"))
+        alertSpriteText:moveTo(200, 120)
+        alertSpriteText:setZIndex(999)
+        alertSpriteText:add()
+
+        local textStartPoint = playdate.geometry.point.new(200, -100)
+        local textEndPoint = playdate.geometry.point.new(200, 120)
+        local textAnimator = gfx.animator.new(200, textStartPoint, textEndPoint, playdate.easingFunctions.outCubic)
+        alertSpriteText:setAnimator(textAnimator)
+        
+        local alertSpriteFish = gfx.sprite.new()
+        alertSpriteFish:setImage(gfx.image.new("SystemAssets/hooked_popup_fish.png"))
+        alertSpriteFish:moveTo(-100, 120)
+        alertSpriteFish:setZIndex(999)
+        alertSpriteFish:add()
+
+        -- Move the fish sprite to the center of teh screen over 0.2 seconds
+        local startPoint = playdate.geometry.point.new(200, 300)
+        local endPoint = playdate.geometry.point.new(200, 120)
+        local fishAnimator = gfx.animator.new(200, startPoint, endPoint, playdate.easingFunctions.outCubic)
+        alertSpriteFish:setAnimator(fishAnimator)
+
         playdate.timer.performAfterDelay(1000, function()
-            alertSprite:remove()
-            alertSprite = nil
+            alertSpriteText:remove()
+            alertSpriteText = nil
+            alertSpriteFish:remove()
+            alertSpriteFish = nil
+            isAnimPlaying = false
         end)
     end
 end

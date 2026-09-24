@@ -1,4 +1,6 @@
 import "CoreLibs/timer"
+import "CoreLibs/sprites"
+
 import "background"
 import "fishing_throw"
 import "bobber_control"
@@ -41,6 +43,7 @@ justCastThisFrame = false
 spawnBoss = false
 stopSpawning = false
 isWon = false
+isAnimPlaying = false
 
 accelerometerMoveTheshold = 0.9
 accelerometerYankScalar = 10.0
@@ -88,7 +91,7 @@ function playdate.update()
     playdate.timer.updateTimers()
     gfx.sprite.update()
 
-    if isIntro or isWon then
+    if isIntro or isWon or isAnimPlaying then
         return
     end
 
