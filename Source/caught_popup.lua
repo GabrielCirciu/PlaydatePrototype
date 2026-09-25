@@ -25,12 +25,12 @@ function caughtPopup()
 
     popupSpriteText = gfx.sprite.new()
     popupSpriteText:setImage(gfx.image.new("SystemAssets/caught_popup_text.png"))
-    popupSpriteText:moveTo(200, 120)
+    popupSpriteText:moveTo(200, 115)
     popupSpriteText:setZIndex(900)
     popupSpriteText:add()
     
     local textStartPoint = playdate.geometry.point.new(200, -100)
-    local textEndPoint = playdate.geometry.point.new(200, 120)
+    local textEndPoint = playdate.geometry.point.new(200, 115)
     local textAnimator = gfx.animator.new(200, textStartPoint, textEndPoint, playdate.easingFunctions.outCubic)
     popupSpriteText:setAnimator(textAnimator)
 
