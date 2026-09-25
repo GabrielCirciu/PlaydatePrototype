@@ -23,7 +23,7 @@ function overlapping_fish_bobber_check()
         isAnimPlaying = true
 
         local alertSpriteText = gfx.sprite.new()
-        alertSpriteText:setImage(gfx.image.new("SystemAssets/HOOKED.png"))
+        alertSpriteText:setImage(gfx.image.new("SystemAssets/hooked_popup_text.png"))
         alertSpriteText:moveTo(200, 120)
         alertSpriteText:setZIndex(999)
         alertSpriteText:add()

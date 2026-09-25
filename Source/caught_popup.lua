@@ -24,7 +24,7 @@ function caughtPopup()
     isAnimPlaying = true
 
     popupSpriteText = gfx.sprite.new()
-    popupSpriteText:setImage(gfx.image.new("SystemAssets/CAUGHT.png"))
+    popupSpriteText:setImage(gfx.image.new("SystemAssets/caught_popup_text.png"))
     popupSpriteText:moveTo(200, 120)
     popupSpriteText:setZIndex(900)
     popupSpriteText:add()
